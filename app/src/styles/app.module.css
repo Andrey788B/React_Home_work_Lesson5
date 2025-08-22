@@ -1,0 +1,52 @@
+.heroWrapper {
+  min-height: 100vh;
+  background: url('../picturies/kosplei.webp') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroWrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* затемнение для читабельности */
+  z-index: 0;
+}
+
+.content {
+  z-index: 1;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navList li {
+  margin: 12px 0;
+}
+
+.navList a {
+  text-decoration: none;
+  font-size: 1.3rem;
+  color: #90cdf4;
+  transition: color 0.3s;
+}
+
+.navList a:hover {
+  color: #ffffff;
+}

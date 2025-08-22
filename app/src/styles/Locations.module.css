@@ -1,0 +1,72 @@
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.select {
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-size: 15px;
+  border: 1px solid #0ff;
+  background-color: #111;
+  color: #0ff;
+  font-family: inherit;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+
+.card {
+  background: linear-gradient(145deg, #0c0c0c, #1a1a1a);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
+}
+
+.cardContent {
+  text-decoration: none;
+  color: #0ff;
+  display: block;
+  transition: color 0.2s;
+}
+
+.cardContent:hover {
+  color: #66ffff;
+}
+
+.cardContent h3 {
+  margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0ff;
+}
+
+.cardContent p {
+  margin: 0;
+  color: #aaa;
+  font-size: 14px;
+}

@@ -1,18 +1,44 @@
-import { useParams } from 'react-router-dom';
-import data from '../../characters.json';
+import { useLoaderData, useParams } from 'react-router';
+import Navbar from '../components/Navbar'; // добавили навигацию
+import styles from "../styles/Character.module.css";
+
+export async function loader() {
+  const data = (await import('../../characters.json')).default as any[];
+  return data;
+}
 
 export default function Character() {
   const { id } = useParams();
-  const character = data.find(c => c.id.toString() === id);
+  const list = useLoaderData<typeof loader>();
+  const hero = list.find(c => String(c.id) === id);
 
-  if (!character) return <h2>Персонаж не найден</h2>;
+  if (!hero) return (
+    <>
+      <Navbar />
+      <h2 className={styles.notFound}>Герой не найден</h2>
+    </>
+  );
 
   return (
-    <div>
-      <h2>{character.name}</h2>
-      <p>Статус: {character.status}</p>
-      <p>Вид: {character.species}</p>
-      <p>Пол: {character.gender}</p>
-    </div>
+    <>
+      <Navbar />
+      <section className={styles.characterContainer}>
+        <div className={styles.characterCard}>
+          <div className={styles.characterInfo}>
+            <h2>{hero.name}</h2>
+            <ul>
+              <li><strong>Создан:</strong> {new Date(hero.created).toLocaleDateString()}</li>
+              <li><strong>Статус:</strong> {hero.status || 'Нет данных'}</li>
+              <li><strong>Вид:</strong> {hero.species || 'Нет данных'}</li>
+              <li><strong>Тип:</strong> {hero.type || 'Нет данных'}</li>
+              <li><strong>Пол:</strong> {hero.gender || 'Нет данных'}</li>
+            </ul>
+          </div>
+          <div className={styles.characterImage}>
+            <img src={hero.image} alt={hero.name} />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

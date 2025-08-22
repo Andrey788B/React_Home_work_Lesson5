@@ -1,0 +1,59 @@
+.container {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.info {
+  flex: 1;
+}
+
+.info h2 {
+  font-size: 28px;
+  color: #222;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 4px;
+}
+
+.info ul {
+  padding: 0;
+  list-style: none;
+}
+
+.info li {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #444;
+}
+
+.visual {
+  flex: 0 0 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+.notFound {
+  text-align: center;
+  color: red;
+  font-size: 24px;
+  margin-top: 60px;
+}
