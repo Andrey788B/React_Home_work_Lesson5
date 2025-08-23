@@ -1,3 +1,5 @@
+"use client";
+
 export default function NotFound() {
   return (
     <main style={{ padding: "1rem", textAlign: "center" }}>

@@ -1,5 +1,5 @@
 import { useLoaderData, useParams } from 'react-router';
-import Navbar from '../components/Navbar'; // добавили навигацию
+// import Navbar from '../components/Navbar'; 
 import styles from "../styles/Character.module.css";
 
 export async function loader() {
@@ -14,17 +14,17 @@ export default function Character() {
 
   if (!hero) return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <h2 className={styles.notFound}>Герой не найден</h2>
     </>
   );
 
   return (
     <>
-      <Navbar />
-      <section className={styles.characterContainer}>
-        <div className={styles.characterCard}>
-          <div className={styles.characterInfo}>
+      {/* <Navbar /> */}
+      <section className={styles.Container}>
+        <div className={styles.Card}>
+          <div className={styles.Info}>
             <h2>{hero.name}</h2>
             <ul>
               <li><strong>Создан:</strong> {new Date(hero.created).toLocaleDateString()}</li>
@@ -34,7 +34,7 @@ export default function Character() {
               <li><strong>Пол:</strong> {hero.gender || 'Нет данных'}</li>
             </ul>
           </div>
-          <div className={styles.characterImage}>
+          <div className={styles.Image}>
             <img src={hero.image} alt={hero.name} />
           </div>
         </div>
