@@ -8,12 +8,14 @@ body {
 
 
 .container {
-  max-width: 1000px;
+  width: 80vw;
   margin: 40px auto;
-  padding: 1.5rem;
-  background: #1e1e1e;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
   color: #fff;
-  border-radius: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Заголовок и сортировка */
@@ -21,24 +23,23 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.header h2 {
+/* .header h2 {
   font-size: 32px;
   font-weight: bold;
   color: #00e0ff;
-}
+} */
 
 .select {
-  background-color: #2a2a2a;
-  color: #fff;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 8px;
-  border: 1px solid #444;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
+  font-size: 15px;
+  border: 1px solid #0ff;
+  background-color: #111;
+  color: #0ff;
+  font-family: inherit;
 }
 
 .select:focus {

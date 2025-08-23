@@ -17,36 +17,92 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55); /* затемнение для читабельности */
+  background: rgba(0, 0, 0, 0.55); /* затемнение для контраста */
   z-index: 0;
 }
 
 .content {
   z-index: 1;
+  animation: fadeIn 1s ease-in-out;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+  font-size: 2.8rem;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  letter-spacing: 1px;
 }
 
 .navList {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
 }
 
 .navList li {
-  margin: 12px 0;
+  position: relative;
 }
 
 .navList a {
   text-decoration: none;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: #90cdf4;
-  transition: color 0.3s;
+  transition: color 0.3s, transform 0.3s;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.navList a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #90cdf4;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
 }
 
 .navList a:hover {
   color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.navList a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Горизонтальное меню на больших экранах */
+@media (min-width: 768px) {
+  .navList {
+    flex-direction: row;
+    gap: 40px;
+  }
+}
+
+.logoutBtn {
+  background: transparent;
+  border: none;
+  color: #f87171; /* красный */
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 4px 8px;
+  transition: color 0.3s;
+}
+
+.logoutBtn:hover {
+  color: #ef4444;
+  text-decoration: underline;
 }

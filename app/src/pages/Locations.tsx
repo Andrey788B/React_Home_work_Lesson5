@@ -1,7 +1,10 @@
+"use client";
+
 import { Link, useLoaderData } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import Navbar from '../components/Navbar'; 
+// import Navbar from '../components/Navbar'; 
 import styles from '../styles/Locations.module.css';
+import PrivateRoute from "../components/PrivateRoute"; 
 
 export async function loader() {
   const data = (await import('../../location.json')).default as any[];
@@ -33,11 +36,10 @@ export default function Locations() {
   }
 
   return (
-    <>
-      <Navbar />
+    <PrivateRoute>
+      {/* <Navbar /> */}
       <section className={styles.container}>
         <div className={styles.header}>
-          <h2>Локации</h2>
           <select value={sortParam} onChange={handleSortChange} className={styles.select}>
             <option value="nameASC">Название A→Z</option>
             <option value="nameDESC">Название Z→A</option>
@@ -57,6 +59,6 @@ export default function Locations() {
           ))}
         </ul>
       </section>
-    </>
+    </PrivateRoute>
   );
 }
