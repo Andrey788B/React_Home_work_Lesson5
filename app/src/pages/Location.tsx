@@ -4,6 +4,7 @@ import { useLoaderData, useParams } from 'react-router';
 import styles from '../styles/Location.module.css';
 // import Navbar from '../components/Navbar'; 
 
+
 export async function loader() {
   const data = (await import('../../location.json')).default as any[];
   return data;
@@ -19,23 +20,25 @@ export default function Location() {
   return (
     <>
       {/* <Navbar /> */}
-      <section className={styles.Container}>
-        <div className={styles.Card}>
-          <div className={styles.Info}>
-            <h2>{location.name}</h2>
-            <ul>
-              <li><strong>Тип:</strong> {location.type || 'Нет данных'}</li>
-              <li><strong>Измерение:</strong> {location.dimension || 'Нет данных'}</li>
-              <li><strong>Создана:</strong>{' '}{new Date(location.created).toLocaleDateString()}</li>
-            </ul>
+
+        <section className={styles.Container}>
+          <div className={styles.Card}>
+            <div className={styles.Info}>
+              <h2>{location.name}</h2>
+              <ul>
+                <li><strong>Тип:</strong> {location.type || 'Нет данных'}</li>
+                <li><strong>Измерение:</strong> {location.dimension || 'Нет данных'}</li>
+                <li><strong>Создана:</strong>{' '}{new Date(location.created).toLocaleDateString()}</li>
+              </ul>
+            </div>
+            <div className={styles.Image}>
+              src='/placeholder-location.png'
+              alt={location.name}
+              className={styles.image}
+            </div>
           </div>
-          <div className={styles.Image}>
-            src='/placeholder-location.png'
-            alt={location.name}
-            className={styles.image}
-          </div>
-        </div>
-      </section>
+        </section>
+
     </>
   );
 }
