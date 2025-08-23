@@ -1,66 +1,89 @@
-import { Link, useLoaderData } from "react-router";
-import { useSearchParams } from "react-router-dom";
-// import Navbar from "../components/Navbar";
+"use client";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import styles from "../styles/Characters.module.css";
-import PrivateRoute from "../components/PrivateRoute"; 
-
-export async function loader() {
-  const data = (await import("../../characters.json")).default as any[];
-  return data;
-}
+import type { Character } from "../types/Character";
+import PrivateRoute from "../components/PrivateRoute";
+import PageErrorBoundary from "../components/PageErrorBoundary";
+import Spinner from "../components/Spinner";
+import Bomb from "../components/Bomb";
 
 export default function Characters() {
-  const list = useLoaderData<typeof loader>();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sortParam = searchParams.get("sort") || "createdASC";
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [shouldCrash, setShouldCrash] = useState(false);
 
-  const sortedList = [...list].sort((a, b) => {
-    switch (sortParam) {
-      case "createdASC":
-        return new Date(a.created).getTime() - new Date(b.created).getTime();
-      case "createdDESC":
-        return new Date(b.created).getTime() - new Date(a.created).getTime();
-      case "nameASC":
-        return a.name.localeCompare(b.name);
-      case "nameDESC":
-        return b.name.localeCompare(a.name);
-      default:
-        return 0;
-    }
-  });
+  useEffect(() => {
+    const handleScroll = () => {
+      const bottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 20;
+      if (bottom && !loading && hasMore) {
+        setPage((prev) => prev + 1);
+      }
+    };
 
-  function handleSortChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setSearchParams({ sort: e.target.value });
-  }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loading, hasMore]);
+
+  useEffect(() => {
+    if (!hasMore || loading) return;
+
+    const fetchCharacters = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await axios.get(
+          `https://rickandmortyapi.com/api/character?page=${page}`
+        );
+        setCharacters((prev) => [...prev, ...res.data.results]);
+        setHasMore(res.data.info.next !== null);
+      } catch (err) {
+        setError("Ошибка загрузки данных с сервера");
+        setHasMore(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCharacters();
+  }, [page]);
 
   return (
-    <PrivateRoute>
-      {/* <Navbar /> */}
-      <section className={styles.container}>
-        <div className={styles.header}>
-          <select
-            value={sortParam}
-            onChange={handleSortChange}
+    <PageErrorBoundary variant="characters">
+      <PrivateRoute>
+        <section className={styles.container}>
+
+          <button
+            onClick={() => setShouldCrash(true)}
             className={styles.select}
           >
-            <option value="createdASC">Дата создания ↑</option>
-            <option value="createdDESC">Дата создания ↓</option>
-            <option value="nameASC">Имя A→Z</option>
-            <option value="nameDESC">Имя Z→A</option>
-          </select>
-        </div>
+            💣 Взорвать компонент
+          </button>
 
-        <ul className={styles.list}>
-          {sortedList.map((c) => (
-            <li key={c.id} className={styles.card}>
-              <Link to={`/characters/${c.id}`} className={styles.cardContent}>
-                <h3>{c.name}</h3>
-                <p>Создан: {new Date(c.created).toLocaleDateString()}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </PrivateRoute> 
+          {shouldCrash ? (
+            <Bomb />
+          ) : (
+            <ul className={styles.list}>
+              {characters.map((c) => (
+                <li key={c.id} className={styles.card}>
+                  <Link to={`/characters/${c.id}`} className={styles.cardContent}>
+                    <h3>{c.name}</h3>
+                    <p>Создан: {new Date(c.created).toLocaleDateString()}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {loading && <Spinner />}
+          {error && <p className={styles.error}>{error}</p>}
+        </section>
+      </PrivateRoute>
+    </PageErrorBoundary>
   );
 }

@@ -1,64 +1,91 @@
 "use client";
 
-import { Link, useLoaderData } from 'react-router';
-import { useSearchParams } from 'react-router-dom';
-// import Navbar from '../components/Navbar'; 
-import styles from '../styles/Locations.module.css';
-import PrivateRoute from "../components/PrivateRoute"; 
-
-export async function loader() {
-  const data = (await import('../../location.json')).default as any[];
-  return data;
-}
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import styles from "../styles/Locations.module.css";
+import type { Location } from "../types/Location";
+import PrivateRoute from "../components/PrivateRoute";
+import PageErrorBoundary from "../components/PageErrorBoundary";
+import Spinner from "../components/Spinner";
+import Bomb from "../components/Bomb";
 
 export default function Locations() {
-  const list = useLoaderData<typeof loader>();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sortParam = searchParams.get('sort') || 'nameASC';
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [shouldCrash, setShouldCrash] = useState(false);
 
-  const sortedList = [...list].sort((a, b) => {
-    switch (sortParam) {
-      case 'nameASC':
-        return a.name.localeCompare(b.name);
-      case 'nameDESC':
-        return b.name.localeCompare(a.name);
-      case 'createdASC':
-        return new Date(a.created).getTime() - new Date(b.created).getTime();
-      case 'createdDESC':
-        return new Date(b.created).getTime() - new Date(a.created).getTime();
-      default:
-        return 0;
-    }
-  });
+  useEffect(() => {
+    const handleScroll = () => {
+      const bottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 20;
+      if (bottom && !loading && hasMore) {
+        setPage((prev) => prev + 1);
+      }
+    };
 
-  function handleSortChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setSearchParams({ sort: e.target.value });
-  }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loading, hasMore]);
+
+  useEffect(() => {
+    if (!hasMore || loading) return;
+
+    const fetchLocations = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await axios.get(
+          `https://rickandmortyapi.com/api/location?page=${page}`
+        );
+        setLocations((prev) => [...prev, ...res.data.results]);
+        setHasMore(res.data.info.next !== null);
+      } catch (err) {
+        setError("Ошибка загрузки данных с сервера");
+        setHasMore(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLocations();
+  }, [page]);
 
   return (
-    <PrivateRoute>
-      {/* <Navbar /> */}
-      <section className={styles.container}>
-        <div className={styles.header}>
-          <select value={sortParam} onChange={handleSortChange} className={styles.select}>
-            <option value="nameASC">Название A→Z</option>
-            <option value="nameDESC">Название Z→A</option>
-            <option value="createdASC">Дата создания ↑</option>
-            <option value="createdDESC">Дата создания ↓</option>
-          </select>
-        </div>
+    <PageErrorBoundary variant="locations">
+      <PrivateRoute>
+        <section className={styles.container}>
 
-        <ul className={styles.list}>
-          {sortedList.map((l) => (
-            <li key={l.id} className={styles.card}>
-              <Link to={`/locations/${l.id}`} className={styles.cardContent}>
-                <h3>{l.name}</h3>
-                <p>Создана: {new Date(l.created).toLocaleDateString()}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </PrivateRoute>
+          <button
+            onClick={() => setShouldCrash(true)}
+            className={styles.select}
+          >
+            💣 Взорвать компонент
+          </button>
+
+          {shouldCrash ? (
+            <Bomb />
+          ) : (
+            <ul className={styles.list}>
+              {locations.map((l) => (
+                <li key={l.id} className={styles.card}>
+                  <Link to={`/locations/${l.id}`} className={styles.cardContent}>
+                    <h3>{l.name}</h3>
+                    <p>Тип: {l.type}</p>
+                    <p>Измерение: {l.dimension}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {loading && <Spinner />}
+          {error && <p className={styles.error}>{error}</p>}
+        </section>
+      </PrivateRoute>
+    </PageErrorBoundary>
   );
 }

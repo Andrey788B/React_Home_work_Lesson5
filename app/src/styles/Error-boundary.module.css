@@ -1,0 +1,52 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  padding: 2rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+.title {
+  font-size: 2rem;
+  color: #00ffc3;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 8px #00ffc3;
+}
+
+.message {
+  font-size: 1.1rem;
+  color: #ddd;
+  margin-bottom: 0.5rem;
+}
+
+.details {
+  font-size: 0.95rem;
+  color: #aaa;
+  font-style: italic;
+  margin-bottom: 1.2rem;
+}
+
+.retryBtn {
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #00ffc3;
+  background: transparent;
+  color: #00ffc3;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.retryBtn:hover {
+  background-color: #00ffc3;
+  color: #000;
+  box-shadow: 0 0 10px #00ffc3;
+}

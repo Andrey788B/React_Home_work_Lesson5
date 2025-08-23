@@ -1,0 +1,25 @@
+.box {
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #90cdf4;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+/* при желании смолл-вариант */
+.small .spinner {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

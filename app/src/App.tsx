@@ -1,5 +1,6 @@
 "use client";
-
+import { Suspense } from "react";
+import Spinner from "./components/Spinner";
 import { NavLink, Outlet } from "react-router-dom";
 import styles from "./styles/app.module.css";
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -36,7 +37,9 @@ function Shell() {
 export default function App() {
   return (
     <AuthProvider>
-      <Shell />
+      <Suspense fallback={<Spinner />}>
+        <Shell />
+      </Suspense>
     </AuthProvider>
   );
 }

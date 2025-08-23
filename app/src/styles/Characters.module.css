@@ -33,6 +33,7 @@ body {
 } */
 
 .select {
+  margin: 1rem;
   padding: 0.5rem 0.8rem;
   border-radius: 8px;
   font-size: 15px;
