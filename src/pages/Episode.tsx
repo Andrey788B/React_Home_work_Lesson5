@@ -2,8 +2,8 @@
 
 import { useParams } from 'react-router';
 // import Navbar from '../components/Navbar';
-import styles from '../styles/Episode.module.css';
-import data from '../../episode.json';
+import styles from '../assets/styles/Episode.module.css';
+import data from '../context/episode.json';
 
 
 export default function Episode() {

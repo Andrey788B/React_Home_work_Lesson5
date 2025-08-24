@@ -1,9 +1,9 @@
 import { useLoaderData, useParams } from 'react-router';
 // import Navbar from '../components/Navbar'; 
-import styles from "../styles/Character.module.css";
+import styles from "../assets/styles/Character.module.css";
 
 export async function loader() {
-  const data = (await import('../../characters.json')).default as any[];
+  const data = (await import('../context/characters.json')).default as any[];
   return data;
 }
 

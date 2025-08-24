@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import styles from "../styles/auth.module.css";
+import styles from "../assets/styles/Auth.module.css";
 
 
 export default function Signin() {

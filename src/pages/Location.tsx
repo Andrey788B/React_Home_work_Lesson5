@@ -1,12 +1,12 @@
 "use client";
 
 import { useLoaderData, useParams } from 'react-router';
-import styles from '../styles/Location.module.css';
+import styles from '../assets/styles/Location.module.css';
 // import Navbar from '../components/Navbar'; 
 
 
 export async function loader() {
-  const data = (await import('../../location.json')).default as any[];
+  const data = (await import('../context/location.json')).default as any[];
   return data;
 }
 
