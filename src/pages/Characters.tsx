@@ -2,15 +2,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import styles from "../styles/Episodes.module.css";
-import type { Episode } from "../types/Episode";
+import styles from "../assets/styles/Characters.module.css";
+import type { Character } from "../types/Character";
 import PrivateRoute from "../components/PrivateRoute";
 import PageErrorBoundary from "../components/PageErrorBoundary";
 import Spinner from "../components/Spinner";
 import Bomb from "../components/Bomb";
 
-export default function Episodes() {
-  const [episodes, setEpisodes] = useState<Episode[]>([]);
+export default function Characters() {
+  const [characters, setCharacters] = useState<Character[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -33,14 +33,14 @@ export default function Episodes() {
   useEffect(() => {
     if (!hasMore || loading) return;
 
-    const fetchEpisodes = async () => {
+    const fetchCharacters = async () => {
       setLoading(true);
       setError(null);
       try {
         const res = await axios.get(
-          `https://rickandmortyapi.com/api/episode?page=${page}`
+          `https://rickandmortyapi.com/api/character?page=${page}`
         );
-        setEpisodes((prev) => [...prev, ...res.data.results]);
+        setCharacters((prev) => [...prev, ...res.data.results]);
         setHasMore(res.data.info.next !== null);
       } catch (err) {
         setError("Ошибка загрузки данных с сервера");
@@ -50,25 +50,24 @@ export default function Episodes() {
       }
     };
 
-    fetchEpisodes();
+    fetchCharacters();
   }, [page]);
 
   return (
-    <PageErrorBoundary variant="episodes">
+    <PageErrorBoundary variant="characters">
       <PrivateRoute>
         <section className={styles.container}>
-
           <button onClick={() => setShouldCrash(true)} className={styles.select}>💣 Взорвать компонент</button>
-
+         
           {shouldCrash ? (
             <Bomb />
           ) : (
             <ul className={styles.list}>
-              {episodes.map((e) => (
-                <li key={e.id} className={styles.card}>
-                  <Link to={`/episodes/${e.id}`} className={styles.cardContent}>
-                    <h3>{e.name}</h3>
-                    <p>Дата выхода: {new Date(e.air_date).toLocaleDateString()}</p>
+              {characters.map((c) => (
+                <li key={c.id} className={styles.card}>
+                  <Link to={`/characters/${c.id}`} className={styles.cardContent}>
+                    <h3>{c.name}</h3>
+                    <p>Создан: {new Date(c.created).toLocaleDateString()}</p>
                   </Link>
                 </li>
               ))}

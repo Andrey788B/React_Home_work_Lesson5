@@ -1,6 +1,6 @@
 .heroWrapper {
   min-height: 100vh;
-  background: url('../picturies/kosplei.webp') no-repeat center center fixed;
+  background: url('../images/kosplei.webp') no-repeat center center fixed;
   background-size: cover;
   display: flex;
   flex-direction: column;

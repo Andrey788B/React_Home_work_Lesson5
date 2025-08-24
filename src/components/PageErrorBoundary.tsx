@@ -1,8 +1,8 @@
 "use client";
 import { Component } from "react";
 import type { ReactNode } from "react";
-import styles from "../styles/Error-boundary.module.css";
-import { withNavigation } from "./WithNavigation"; // HOC
+import styles from "../assets/styles/Error-boundary.module.css";
+import { withNavigation } from "./WithNavigation"; 
 
 type Variant = "characters" | "locations" | "episodes" | "default";
 

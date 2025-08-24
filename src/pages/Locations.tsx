@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import styles from "../styles/Locations.module.css";
+import styles from "../assets/styles/Locations.module.css";
 import type { Location } from "../types/Location";
 import PrivateRoute from "../components/PrivateRoute";
 import PageErrorBoundary from "../components/PageErrorBoundary";
