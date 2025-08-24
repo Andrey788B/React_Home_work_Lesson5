@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
 // import Navbar from '../components/Navbar';
 import styles from '../styles/Episode.module.css';
 import data from '../../episode.json';

@@ -2,7 +2,6 @@ import { useLoaderData, useParams } from 'react-router';
 // import Navbar from '../components/Navbar'; 
 import styles from "../styles/Character.module.css";
 
-
 export async function loader() {
   const data = (await import('../../characters.json')).default as any[];
   return data;
@@ -23,7 +22,6 @@ export default function Character() {
   return (
     <>
       {/* <Navbar /> */}
-      
         <section className={styles.Container}>
           <div className={styles.Card}>
             <div className={styles.Info}>
@@ -41,7 +39,6 @@ export default function Character() {
             </div>
           </div>
         </section>
-
     </>
   );
 }

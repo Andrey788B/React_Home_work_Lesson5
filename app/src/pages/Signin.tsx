@@ -13,8 +13,8 @@ export default function Signin() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!username.trim()) return;
-    // в демо-версии просто логинимся
+    if (!username.trim()) return; 
+    
     login(username.trim());
   }
 
