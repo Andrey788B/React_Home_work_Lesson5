@@ -14,7 +14,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  // никаких localStorage в инициализаторе!
+
   const [user, setUser] = useState<string | null>(null);
   const navigate = useNavigate();
 

@@ -9,7 +9,7 @@ type Variant = "characters" | "locations" | "episodes" | "default";
 type Props = {
   children: ReactNode;
   variant?: Variant;
-  navigate?: (path: string) => void; // добавили navigate как проп
+  navigate?: (path: string) => void; 
 };
 
 type State = { hasError: boolean; message?: string };
@@ -23,7 +23,7 @@ class PageErrorBoundary extends Component<Props, State> {
 
   handleRetry = () => {
     if (this.props.navigate) {
-      this.props.navigate("/"); // теперь переход сработает
+      this.props.navigate("/"); 
     } else {
       this.setState({ hasError: false, message: undefined });
     }

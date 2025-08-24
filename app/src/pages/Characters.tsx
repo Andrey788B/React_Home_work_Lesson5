@@ -57,14 +57,8 @@ export default function Characters() {
     <PageErrorBoundary variant="characters">
       <PrivateRoute>
         <section className={styles.container}>
-
-          <button
-            onClick={() => setShouldCrash(true)}
-            className={styles.select}
-          >
-            💣 Взорвать компонент
-          </button>
-
+          <button onClick={() => setShouldCrash(true)} className={styles.select}>💣 Взорвать компонент</button>
+         
           {shouldCrash ? (
             <Bomb />
           ) : (
