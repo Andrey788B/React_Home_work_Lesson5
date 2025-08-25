@@ -11,7 +11,7 @@ import type { Route } from './+types/root';
 import '../assets/styles/App.css';
 
 export const links: Route.LinksFunction = () => [
-  // твои шрифты
+
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
     rel: 'preconnect',
