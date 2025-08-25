@@ -2,6 +2,10 @@ import { type RouteConfig, route } from '@react-router/dev/routes';
 
 export default [
   route('/', '../App.tsx', [
+    // индексный маршрут для "/"
+    route('', '../pages/Signin.tsx'),
+
+    // явные маршруты аутентификации
     route('/signin', '../pages/Signin.tsx'),
     route('/signup', '../pages/Signup.tsx'),
 
@@ -13,6 +17,5 @@ export default [
     route('/episodes', '../pages/Episodes.tsx'),
     route('/episodes/:id', '../pages/Episode.tsx'),
   ]),
-
   route('*', '../pages/NotFound.tsx'),
 ] satisfies RouteConfig;
