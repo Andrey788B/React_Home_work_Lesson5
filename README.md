@@ -85,3 +85,14 @@ This template comes with [Tailwind CSS](https://tailwindcss.com/) already config
 ---
 
 Built with ❤️ using React Router.
+
+## PWA
+
+- Подключён `manifest.json`
+- Добавлены иконки 
+- Подключён `service-worker.js`
+- Поддержка установки на устройства (Lighthouse: 100% PWA)
+
+## Авторизация
+
+- Реализован редирект на `/signin` при отсутствии `user` в localStorage
