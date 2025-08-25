@@ -7,6 +7,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import { MantineProvider } from "@mantine/core";
 import { Button, Title } from "@mantine/core";
 
+
 function Shell() {
   const { isAuthenticated, logout } = useAuth();
 
